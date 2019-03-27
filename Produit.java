@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.lang.Comparable;
+import java.lang.Class;
 
 public abstract class Produit implements Comparable<Produit>{
 	private float poids;
@@ -29,7 +30,7 @@ public abstract class Produit implements Comparable<Produit>{
 	}
 
 	public String toString() {
-		return this.getClass().toString() + " : \n" + 
+		return this.getClass().getName() + " : " + 
 			"\npoids : \n\t" + this.poids + 
 			"\ncoutFabrication : \n\t" 	+ this.coutFabrication + 
 			"\nprixVente : \n\t" + this.prixVente + 
