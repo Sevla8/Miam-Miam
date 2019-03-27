@@ -5,7 +5,7 @@ public class Main {
 		// creation SiegeMiamMiam
 		SiegeMiamMiam siegeMiamMiam = new SiegeMiamMiam();
 		// creation Magasins + Usines
-		siegeMiamMiam.ajouterMagasin(new Magasin("O'MarcheFrais", "Paris"));
+		siegeMiamMiam.ajouterMagasin(new Magasin("Store", "Paris"));
 		siegeMiamMiam.ajouterUsine(new Usine("Alpha", "Singapour"));
 		siegeMiamMiam.ajouterUsine(new Usine("Beta", "Moscow"));
 		siegeMiamMiam.ajouterUsine(new Usine("Gama", "Tokyo"));
@@ -21,7 +21,8 @@ public class Main {
 		siegeMiamMiam.getMagasins().getFirst().ajouterProduit(siegeMiamMiam.getUsines().getLast().produire(CodeProduit.lasagneBoeuf, LocalDate.now()));
 		// destruction Produits
 		System.out.println(siegeMiamMiam.detruireProduit(CodeProduit.champignonPersille, LocalDate.now()));
-		System.out.println(siegeMiamMiam.detruireProduit(CodeProduit.champignonPersille, LocalDate.now().plusYears(25)));
+		System.out.println(siegeMiamMiam.detruireProduit(CodeProduit.champignonPersille, LocalDate.now().plusYears(3).plusMonths(5)));
+		System.out.println(siegeMiamMiam.detruireProduit(CodeProduit.champignonPersille, LocalDate.now().plusYears(10)));
 		// vente Produits
 		System.out.println(siegeMiamMiam.getMagasins().getFirst().vendreProduit(CodeProduit.champignonPersille, 15, LocalDate.now()));
 		// description SiegeMiamMiam
