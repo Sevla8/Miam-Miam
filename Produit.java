@@ -21,6 +21,18 @@ public abstract class Produit implements Comparable<Produit>{
 		this.usine = usine;
 	}
 
+	public int compareTo(Produit produit) {
+		return this.dateLimite.compareTo(produit.dateLimite);
+	}
+
+	public String toString() {
+		return "poids : \n\t" + this.poids + 
+			"\ncoutFabrication : \n\t" 	+ this.coutFabrication + 
+			"\nprixVente : \n\t" + this.prixVente + 
+			"\ndateLimite : \n\t" + this.dateLimite + 
+			"\nusine : \n" + this.usine.toString();
+	}
+
 	public void setPrixVente(float prixVente) {
 		this.prixVente = prixVente;
 	}
@@ -38,13 +50,5 @@ public abstract class Produit implements Comparable<Produit>{
 	}
 	public Usine getUsine() {
 		return this.usine;
-	}
-
-	public int compareTo(Produit produit) {
-		return this.dateLimite.compareTo(produit.dateLimite);
-	}
-
-	public String toString() {
-		return "poids : \n\t" + this.poids + "\ncoutFabrication : \n\t" + this.coutFabrication + "\nprixVente : \n\t" + this.prixVente + "\ndateLimite : \n\t" + this.dateLimite + "\nusine : \n" + this.usine.toString();
 	}
 }

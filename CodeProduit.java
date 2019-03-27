@@ -4,6 +4,8 @@ public class CodeProduit {
 	public static final int champignonPersille = 3;	
 
 	public String toString() {
-		return "ChoucrouteGarnie : \n\t" + this.choucrouteGarnie + "\nlasagneBoeuf : \n\t" + this.lasagneBoeuf + "\nchampignonPersille : \n\t" + this.champignonPersille;
+		return "choucrouteGarnie : \n\t" + this.choucrouteGarnie + 
+			"\nlasagneBoeuf : \n\t" + this.lasagneBoeuf + 
+			"\nchampignonPersille : \n\t" + this.champignonPersille;
 	}
 }

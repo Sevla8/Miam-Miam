@@ -19,7 +19,12 @@ public class Magasin implements Observable {
 	}
 
 	public void supprimerObservateur(Observateur observateur) {
-
+		Iterator<Observateur> it = this.observateurs.iterator();
+		while (it.hasNext()) {
+			Observateur obs = it.next();
+			if (observateur.equals(obs))
+				it.remove();
+		}
 	}
 
 	public void ajouterProduit(Produit produit) {
@@ -27,40 +32,54 @@ public class Magasin implements Observable {
 	}
 
 	public float vendreProduit(int codeProduit, int quantite, LocalDate aujourdhui) {
-		Collections.sort(this.gamme);
-
 		float prix = 0f;
+		Collections.sort(this.gamme);
 		int i = 0;
-
 		Iterator<Produit> it = this.gamme.iterator();
-		while(it.hasNext() && i <= quantite) {
+		while (it.hasNext() && i < quantite) {
 			Produit produit = it.next();
-
 			if (codeProduit == CodeProduit.choucrouteGarnie && 
 					aujourdhui.isBefore(produit.getDateLimite())) {
 				prix += produit.getPrixVente();
 				it.remove();
 				quantite += 1 ;
 			}
-			
 			else if (codeProduit == CodeProduit.lasagneBoeuf && 
 					aujourdhui.isBefore(produit.getDateLimite())) {
 				prix += produit.getPrixVente();
 				it.remove();
 				quantite += 1 ;
 			}
-
 			else {
 				prix += produit.getPrixVente();
 				it.remove();
 				quantite += 1 ;
 			}
 		}
-
 		for (Observateur obs : this.observateurs)
 			obs.evenementProduitVendu(this, codeProduit, aujourdhui);
-
 		return prix;
+	}
+
+	public float detruireProduit(int codeProduit, LocalDate aujourdhui) {
+		float perte = 0f;
+		Iterator<Produit> it = this.gamme.iterator();
+		while(it.hasNext()) {
+			Produit produit = it.next();
+			if (produit.getDateLimite().isAfter(aujourdhui)) {
+				perte += produit.getPrixVente();
+				it.remove();
+			}
+		}
+		return perte;
+	}
+
+	public String toString() {
+		String string = new String("");
+		string += "nom : \n\t" + this.nom + "\nville : \n\t" + this.ville + "\ngamme : \n";
+		for (Produit produit : gamme)
+			string += produit.toString();
+		return string;
 	}
 
 	public String getNom() {
@@ -74,13 +93,5 @@ public class Magasin implements Observable {
 	}
 	public void setVille(String ville) {
 		this.ville = ville;
-	}
-
-	public String toString() {
-		String string = new String("");
-		string += "nom : \n\t" + this.nom + "\nville : \n\t" + this.ville + "\ngamme : \n";
-		for (Produit produit : gamme)
-			string += produit.toString();
-		return string;
 	}
 }

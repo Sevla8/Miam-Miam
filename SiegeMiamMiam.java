@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Iterator;
+import java.time.LocalDate;
 
 public class SiegeMiamMiam {
 	private LinkedList<Usine> usines = new LinkedList<Usine>();
@@ -11,6 +12,13 @@ public class SiegeMiamMiam {
 
 	public void ajouterMagasin(Magasin magasin) {
 		this.magasins.add(magasin);
+	}
+
+	public float detruireProduit(int codeProduit, LocalDate aujourdhui) {
+		float perte = 0f;
+		for (Magasin magasin : this.magasins)
+			perte += magasin.detruireProduit(codeProduit, aujourdhui);
+		return perte;
 	}
 
 	public String toString() {
