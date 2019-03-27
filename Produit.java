@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.lang.Comparable;
 
 public abstract class Produit implements Comparable<Produit>{
 	private float poids;
@@ -6,8 +7,9 @@ public abstract class Produit implements Comparable<Produit>{
 	private float prixVente;
 	private LocalDate dateLimite;
 	private Usine usine;
+	private int codeProduit;
 
-	public Produit(float poids, float coutFabrication, float prixVente, LocalDate dateLimite, Usine usine) {
+	public Produit(float poids, float coutFabrication, float prixVente, LocalDate dateLimite, Usine usine, int codeProduit) {
 		if (poids < 0)
 			this.poids = 0;
 		else
@@ -19,6 +21,7 @@ public abstract class Produit implements Comparable<Produit>{
 		this.prixVente = prixVente;
 		this.dateLimite = dateLimite;
 		this.usine = usine;
+		this.codeProduit = codeProduit;
 	}
 
 	public int compareTo(Produit produit) {
@@ -26,7 +29,8 @@ public abstract class Produit implements Comparable<Produit>{
 	}
 
 	public String toString() {
-		return "poids : \n\t" + this.poids + 
+		return this.getClass().toString() + " : \n" + 
+			"\npoids : \n\t" + this.poids + 
 			"\ncoutFabrication : \n\t" 	+ this.coutFabrication + 
 			"\nprixVente : \n\t" + this.prixVente + 
 			"\ndateLimite : \n\t" + this.dateLimite + 
@@ -50,5 +54,8 @@ public abstract class Produit implements Comparable<Produit>{
 	}
 	public Usine getUsine() {
 		return this.usine;
+	}
+	public int getCodeProduit() {
+		return this.codeProduit;
 	}
 }

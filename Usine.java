@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.lang.Object;
+import java.util.LinkedList;
 
 public class Usine implements Observateur {
 	private String nom;
@@ -10,16 +11,17 @@ public class Usine implements Observateur {
 		this.ville = ville;
 	}
 
-	public void evenementProduitVendu(Magasin magasin, int codeProduit, LocalDate aujourdhui) {
-	// 	if (codeProduit == CodeProduit.ChoucrouteGarnie) {
-	// 		if (magasin.)
-	// 	}
-	// 	else if (codeProduit == CodeProduit.LasagneBoeuf) {
-			
-	// 	}
-	// 	else {
-			
-	// 	}
+	public void evenementProduitVendu(Magasin magasin, int codeProduit, LocalDate aujourdhui, Usine usine) {
+		int i = 0;
+		for (Produit produit : magasin.getGamme()) {
+			if (produit.getCodeProduit() == codeProduit && produit.getDateLimite().isBefore(aujourdhui))
+				i += 1;
+		}
+		if (i == 0 && this.equals(usine)) {
+			for (int k = 0; k < 10; k += 1) {
+				magasin.ajouterProduit(this.produire(codeProduit, aujourdhui));
+			}
+		}
 	}
 
 	public Produit produire(int codeProduit, LocalDate aujourdhui) {
@@ -47,7 +49,7 @@ public class Usine implements Observateur {
 	}
 
 	public String toString() {
-		return "nom : \n\t" + this.nom + "\nville : \n\t" + this.ville;
+		return "nom : \n\t" + this.nom + "\nville : \n\t" + this.ville + "\n";
 	}
 
 	public String getNom() {

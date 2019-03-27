@@ -3,7 +3,7 @@ import java.time.Month;
 
 public class LasagneBoeuf extends Produit {
 	public LasagneBoeuf(LocalDate dateCreation, Usine usine) {
-		super(0.280f, 0.30f, 3.20f, dateCreation.plusYears(3), usine);
+		super(0.280f, 0.30f, 3.20f, dateCreation.plusYears(3), usine, CodeProduit.lasagneBoeuf);
 	}
 
 	public LocalDate getDateLimite() {

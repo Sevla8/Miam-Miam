@@ -31,4 +31,11 @@ public class SiegeMiamMiam {
 			string += magasin.toString();
 		return string;
 	}
+
+	public LinkedList<Usine> getUsines() {
+		return this.usines;
+	}
+	public LinkedList<Magasin> getMagasins() {
+		return this.magasins;
+	}
 }

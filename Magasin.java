@@ -36,49 +36,46 @@ public class Magasin implements Observable {
 		Collections.sort(this.gamme);
 		int i = 0;
 		Iterator<Produit> it = this.gamme.iterator();
+		Usine usine = null;
 		while (it.hasNext() && i < quantite) {
 			Produit produit = it.next();
-			if (codeProduit == CodeProduit.choucrouteGarnie && 
-					aujourdhui.isBefore(produit.getDateLimite())) {
+			if (codeProduit == produit.getCodeProduit() && aujourdhui.isBefore(produit.getDateLimite())) {
 				prix += produit.getPrixVente();
-				it.remove();
-				quantite += 1 ;
-			}
-			else if (codeProduit == CodeProduit.lasagneBoeuf && 
-					aujourdhui.isBefore(produit.getDateLimite())) {
-				prix += produit.getPrixVente();
-				it.remove();
-				quantite += 1 ;
-			}
-			else {
-				prix += produit.getPrixVente();
+				usine = new Usine(produit.getUsine().getNom(), produit.getUsine().getVille());
 				it.remove();
 				quantite += 1 ;
 			}
 		}
 		for (Observateur obs : this.observateurs)
-			obs.evenementProduitVendu(this, codeProduit, aujourdhui);
+			obs.evenementProduitVendu(this, codeProduit, aujourdhui, usine);
 		return prix;
 	}
 
 	public float detruireProduit(int codeProduit, LocalDate aujourdhui) {
 		float perte = 0f;
 		Iterator<Produit> it = this.gamme.iterator();
+		Usine usine = null;
 		while(it.hasNext()) {
 			Produit produit = it.next();
-			if (produit.getDateLimite().isAfter(aujourdhui)) {
+			if (codeProduit == produit.getCodeProduit() && produit.getDateLimite().isBefore(aujourdhui)) {
 				perte += produit.getPrixVente();
+				usine = new Usine(produit.getUsine().getNom(), produit.getUsine().getVille());
 				it.remove();
 			}
 		}
+		for (Observateur obs : this.observateurs)
+			obs.evenementProduitVendu(this, codeProduit, aujourdhui, usine);
 		return perte;
 	}
 
 	public String toString() {
 		String string = new String("");
 		string += "nom : \n\t" + this.nom + "\nville : \n\t" + this.ville + "\ngamme : \n";
-		for (Produit produit : gamme)
+		for (Produit produit : this.gamme)
 			string += produit.toString();
+		string += "observateurs : \n";
+		for (Observateur obs : this.observateurs)
+			string += obs.toString();
 		return string;
 	}
 
@@ -93,5 +90,11 @@ public class Magasin implements Observable {
 	}
 	public void setVille(String ville) {
 		this.ville = ville;
+	}
+	public LinkedList<Produit> getGamme() {
+		return this.gamme;
+	}
+	public LinkedList<Observateur> getObservateurs() {
+		return this.observateurs;
 	}
 }
